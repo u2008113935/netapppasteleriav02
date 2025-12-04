@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  MainPage.xaml
+  Página principal: muestra catálogo de productos y permite buscar y agregar al carrito.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:apppasteleriav02.Converters"
+             x:Class="apppasteleriav02.Views.MainPage"
+             Title="Catálogo - Pastelería Delicia">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:ImagePathToUriConverter x:Key="ImagePathToUriConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <!-- Layout vertical principal -->
+        <VerticalStackLayout Padding="12" Spacing="10">
+
+            <!-- Cabecera: título y botón al carrito -->
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Start">
+                <Label Text="Pastelería Delicia" FontAttributes="Bold" FontSize="22" VerticalOptions="Center"/>
+                <Button Text="Carrito" Clicked="OnCartClicked" Grid.Column="1" />
+            </Grid>
+
+            <!-- Entrada de búsqueda -->
+            <Entry x:Name="SearchEntry"
+             Placeholder="Buscar producto..."
+             TextChanged="OnSearchTextChanged" />
+
+            <!-- Indicador de carga -->
+            <ActivityIndicator x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" HeightRequest="36" />
+
+
+                <!-- Colección de productos -->
+            <CollectionView x:Name="ProductsCollection" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="8" Margin="0,6" CornerRadius="8" HasShadow="True">
+                            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                                <!-- Imagen del producto -->
+                                <Image Source="{Binding ImagenPath, Converter={StaticResource ImagePathToUriConverter}}"
+                                    WidthRequest="72" HeightRequest="72" Aspect="AspectFill"/>
+                                <!-- Información del producto -->
+                                <VerticalStackLayout HorizontalOptions="StartAndExpand" Padding="8,0">
+                                    <Label Text="{Binding Nombre}" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Descripcion}" LineBreakMode="TailTruncation" FontSize="12" />
+                                    <Label Text="{Binding Precio, StringFormat='₡{0:N2}'}" FontAttributes="Bold"/>
+                                </VerticalStackLayout>
+
+                                <!-- Botón Agregar al carrito; CommandParameter pasa el producto completo -->
+                                <Button Text="Agregar" Clicked="OnAddToCartClicked" CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

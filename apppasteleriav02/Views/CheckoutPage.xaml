@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  CheckoutPage.xaml
+  Página de comprobación / pago (checkout) para la app Pastelería Delicia.
+  Comentarios didácticos incluidos en cada bloque para explicar propósito y uso.
+  Nota: el code-behind (CheckoutPage.xaml.cs) debe:
+    - Asignar ItemsSource del CollectionView al CartService.Instance.Items
+    - Calcular/actualizar TotalLabel
+    - Manejar la lógica de PlaceOrder (validaciones, llamado a SupabaseService.CreateOrderAsync, limpieza del carrito)
+    - Mostrar/ocultar CardDetailsStack según PaymentPicker.SelectedIndex o PaymentPicker.SelectedItem
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apppasteleriav02.Views.CheckoutPage"
+             Title="Checkout">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="12" Spacing="12">
+
+                <!-- Título -->
+                <Label Text="Confirmar pedido" FontSize="20" FontAttributes="Bold" />
+
+                <!-- Resumen rápido: CollectionView mostrando items del carrito -->
+                <!-- ItemsSource se asigna desde code-behind: CartCollection.ItemsSource = CartService.Instance.Items; -->
+                <CollectionView x:Name="CartCollection" SelectionMode="None" HeightRequest="220">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="8" Margin="0,6" CornerRadius="8" HasShadow="True">
+                                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                    <Image Source="{Binding ProductImageUrl}" WidthRequest="64" HeightRequest="64" Aspect="AspectFill"/>
+                                    <VerticalStackLayout HorizontalOptions="StartAndExpand">
+                                        <Label Text="{Binding ProductName}" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Quantity, StringFormat='Cantidad: {0}'}" FontSize="12"/>
+                                    </VerticalStackLayout>
+                                    <Label Text="{Binding Subtotal, StringFormat='₡{0:N2}'}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Dirección de entrega (Entry) -->
+                <Label Text="Dirección de entrega" FontAttributes="Bold" />
+                <Editor x:Name="AddressEditor" AutoSize="TextChanges" Placeholder="Calle, número, referencia..." HeightRequest="80"/>
+
+                <!-- Switch: entrega a domicilio (si no, será recogida en tienda) -->
+                <HorizontalStackLayout VerticalOptions="Center" Spacing="8">
+                    <Label Text="Entrega a domicilio" VerticalOptions="Center"/>
+                    <Switch x:Name="DeliverySwitch" IsToggled="True" Toggled="OnDeliveryToggled"/>
+                </HorizontalStackLayout>
+
+                <!-- Selector de método de pago -->
+                <Label Text="Método de pago" FontAttributes="Bold" />
+                <Picker x:Name="PaymentPicker" Title="Seleccionar método" SelectedIndexChanged="OnPaymentMethodChanged">
+                    <Picker.Items>
+                        <x:String>Efectivo al recibir</x:String>
+                        <x:String>Tarjeta (POS)</x:String>
+                        <x:String>Tarjeta (online)</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <!-- Detalles de tarjeta (ocultos por defecto; mostrar si el método es tarjeta online/POS) -->
+                <VerticalStackLayout x:Name="CardDetailsStack" IsVisible="False" Spacing="8">
+                    <Label Text="Datos de tarjeta" FontAttributes="Bold"/>
+                    <Entry x:Name="CardHolderEntry" Placeholder="Nombre en la tarjeta"/>
+                    <Entry x:Name="CardNumberEntry" Placeholder="Número de tarjeta" Keyboard="Numeric"/>
+                    <HorizontalStackLayout Spacing="8">
+                        <Entry x:Name="CardExpiryEntry" Placeholder="MM/AA" WidthRequest="120"/>
+                        <Entry x:Name="CardCvvEntry" Placeholder="CVV" WidthRequest="100" IsPassword="True" Keyboard="Numeric"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Comentarios adicionales para el pedido -->
+                <Label Text="Instrucciones / comentarios" FontAttributes="Bold"/>
+                <Editor x:Name="NotesEditor" AutoSize="TextChanges" HeightRequest="60" Placeholder="Ej.: Sin azúcar, llamar antes de entregar..."/>
+
+                <!-- Resumen de montos -->
+                <Frame Padding="8" CornerRadius="8" HasShadow="True">
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Subtotal:" />
+                            <Label x:Name="SubtotalLabel" HorizontalOptions="EndAndExpand" Text="₡0.00"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Envío:" />
+                            <Label x:Name="ShippingLabel" HorizontalOptions="EndAndExpand" Text="₡0.00"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Total:" FontAttributes="Bold"/>
+                            <Label x:Name="TotalLabel" HorizontalOptions="EndAndExpand" Text="₡0.00" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Botones de acción -->
+                <HorizontalStackLayout Spacing="12">
+                    <Button Text="Volver" Clicked="OnBackClicked" HorizontalOptions="StartAndExpand"/>
+                    <Button x:Name="PlaceOrderButton" Text="Pagar y confirmar" BackgroundColor="#2E7D32" TextColor="White"
+                  Clicked="OnPlaceOrderClicked" HorizontalOptions="EndAndExpand"/>
+                </HorizontalStackLayout>
+
+                <!-- Indicador de actividad para operaciones largas (envío de pedido) -->
+                <ActivityIndicator x:Name="CheckoutActivity" IsVisible="False" IsRunning="False" HeightRequest="36" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

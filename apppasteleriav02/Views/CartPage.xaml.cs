@@ -1,0 +1,76 @@
+using System;
+using System.Linq;
+using Microsoft.Maui.Controls;
+using apppasteleriav02.Services;
+
+namespace apppasteleriav02.Views
+{
+    public partial class CartPage : ContentPage
+    {
+        readonly CartService _cart = CartService.Instance;
+
+        public CartPage()
+        {
+            InitializeComponent();
+
+            // Configuro el BindingContext al singleton para que los Bindings en XAML funcionen:
+            BindingContext = _cart;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Ya no es necesario forzar ItemsSource aquí si usamos BindingContext
+            System.Diagnostics.Debug.WriteLine($"CartPage.OnAppearing -> Items.Count={_cart.Items.Count}");
+            System.Diagnostics.Debug.WriteLine($"CartCollection.ItemsSource -> {CartCollection?.ItemsSource?.GetType().FullName ?? "(null)"}");
+
+            int i = 0;
+            foreach (var it in _cart.Items)
+            {
+                System.Diagnostics.Debug.WriteLine($"CartItem[{i}] Nombre: {it.Nombre} ImagenPath: {it.ImagenPath} Price:{it.Price} Qty:{it.Quantity}");
+                i++;
+            }
+        }
+
+        void OnIncreaseClicked(object sender, EventArgs e)
+        {
+            if (sender is Button btn && btn.CommandParameter is Guid productId)
+            {
+                var existing = _cart.Items.FirstOrDefault(i => i.ProductId == productId);
+                if (existing != null) _cart.UpdateQuantity(productId, existing.Quantity + 1);
+            }
+        }
+
+        void OnDecreaseClicked(object sender, EventArgs e)
+        {
+            if (sender is Button btn && btn.CommandParameter is Guid productId)
+            {
+                var existing = _cart.Items.FirstOrDefault(i => i.ProductId == productId);
+                if (existing != null) _cart.UpdateQuantity(productId, existing.Quantity - 1);
+            }
+        }
+
+        void OnRemoveClicked(object sender, EventArgs e)
+        {
+            if (sender is Button btn && btn.CommandParameter is Guid productId)
+                _cart.Remove(productId);
+        }
+
+        // Handler añadido para Checkout (implementación de ejemplo)
+        async void OnCheckoutClicked(object sender, EventArgs e)
+        {
+            if (_cart.Items.Count == 0)
+            {
+                await DisplayAlert("Carrito vacío", "No hay productos en el carrito.", "OK");
+                return;
+            }
+
+            // Aquí iría la lógica real de checkout (navegar a pantalla de pago, crear Order, etc.)
+            await DisplayAlert("Checkout", $"Total a pagar: S/ {_cart.Total:N2}", "OK");
+
+            // Ejemplo: limpiar carrito después del checkout
+            //_cart.Clear();
+        }
+    }
+}
