@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace apppasteleriav02.Services
 {
@@ -22,6 +23,8 @@ namespace apppasteleriav02.Services
 
         public int Count => Items.Sum(i => i.Quantity);
 
+        // Key para almacenamiento local
+        const string CartStorageKey = "local_cart_v1";
         private CartService()
         {
             Items.CollectionChanged += Items_CollectionChanged;
@@ -151,6 +154,69 @@ namespace apppasteleriav02.Services
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // -------------------------
+        // Persistencia local (Preferences)
+        // -------------------------
+
+        // Guarda el carrito en Preferences (serializado JSON)
+        public async Task SaveLocalAsync()
+        {
+            try
+            {
+                var arr = Items.ToArray();
+                var json = JsonSerializer.Serialize(arr);
+                Preferences.Set(CartStorageKey, json);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"CartService.SaveLocalAsync error: {ex.Message}");
+            }
+            await Task.CompletedTask;
+        }
+
+        // Carga el carrito desde Preferences (reemplaza el contenido actual)
+        public async Task LoadLocalAsync()
+        {
+            try
+            {
+                var json = Preferences.Get(CartStorageKey, string.Empty);
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    var items = JsonSerializer.Deserialize<CartItem[]>(json);
+                    if (items != null)
+                    {
+                        Items.Clear();
+                        foreach (var it in items) Items.Add(it);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"CartService.LoadLocalAsync error: {ex.Message}");
+            }
+            await Task.CompletedTask;
+        }
+
+        // Merge: suma cantidades si producto existe, o añade nuevo.
+        public void MergeFrom(CartItem[] other)
+        {
+            if (other == null || other.Length == 0) return;
+            foreach (var it in other)
+            {
+                var existing = Items.FirstOrDefault(i => i.ProductId == it.ProductId);
+                if (existing != null)
+                    existing.Quantity += it.Quantity;
+                else
+                    Items.Add(it);
+            }
+
+            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(Total));
+
+            // Opcional: guardar después de merge
+            _ = SaveLocalAsync();
         }
     }
 }

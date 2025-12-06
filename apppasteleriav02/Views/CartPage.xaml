@@ -51,11 +51,11 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Pie: total y checkout -->
+        <!-- Pie: total y Confirmar Compra -->
         <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="End" Spacing="12" Padding="8">
             <Label Text="{Binding Total, StringFormat='Total: S/ {0:N2}'}"
              FontAttributes="Bold" VerticalOptions="Center" />
-            <Button Text="Checkout" Clicked="OnCheckoutClicked" HorizontalOptions="Fill" />
+            <Button Text="Confirmar Compra" Clicked="OnConfirmPurchaseClicked" HorizontalOptions="Fill" />
         </StackLayout>
     </Grid>
 </ContentPage>

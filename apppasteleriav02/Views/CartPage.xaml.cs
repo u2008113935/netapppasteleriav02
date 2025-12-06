@@ -57,8 +57,8 @@ namespace apppasteleriav02.Views
                 _cart.Remove(productId);
         }
 
-        // Handler añadido para Checkout (implementación de ejemplo)
-        async void OnCheckoutClicked(object sender, EventArgs e)
+        // Handler añadido para Confirmar Compra (implementación de ejemplo)
+        async void OnConfirmPurchaseClicked(object sender, EventArgs e)
         {
             if (_cart.Items.Count == 0)
             {
@@ -66,11 +66,34 @@ namespace apppasteleriav02.Views
                 return;
             }
 
-            // Aquí iría la lógica real de checkout (navegar a pantalla de pago, crear Order, etc.)
-            await DisplayAlert("Checkout", $"Total a pagar: S/ {_cart.Total:N2}", "OK");
+            // Aquí iría la lógica real de confirmar compra (navegar a pantalla de pago, crear Order, etc.)
+            await DisplayAlert("Confirmar Compra", $"Total a pagar: S/ {_cart.Total:N2}", "OK");
 
-            // Ejemplo: limpiar carrito después del checkout
+            // Ejemplo: limpiar carrito después de confirmar compra
             //_cart.Clear();
+
+            // Guardar carrito local antes de redirigir (para persistencia previa a login)
+            try
+            {
+                await _cart.SaveLocalAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error guardando carrito local: {ex.Message}");
+            }
+
+            // Comprobar autenticación
+            if (!AuthService.Instance.IsAuthenticated)
+            {
+                // Navegar a LoginPage; le pasamos returnTo="cart" para que, al autenticarse,
+                // pueda volver al carrito (LoginPage debe PopAsync() al finalizar).
+                await Navigation.PushAsync(new LoginPage(returnTo: "cart"));
+                return;
+            }
+
+            // Si ya está autenticado, ir a Checkout (suponiendo que existe CheckoutPage)
+            await Navigation.PushAsync(new CheckoutPage());
+
         }
     }
 }
