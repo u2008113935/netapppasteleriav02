@@ -1,22 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Maui.Storage;
+using System.Diagnostics;
 
 namespace apppasteleriav02.Services
 {
-    // Servicio de autenticación mínimo. Reemplazar las llamadas de ejemplo
-    // por llamadas reales a Supabase SDK/REST.
+    // Servicio de autenticación por llamadas reales a Supabase REST.
     public class AuthService
     {
         public static AuthService Instance { get; } = new AuthService();
 
+        //Claves para el SecureStorage
         const string TokenKey = "auth_token";
+        const string RefreshKey = "auth_refresh";
         const string UserIdKey = "auth_user_id";
 
+        //Estado en memoria de la sesión
         public string? AccessToken { get; private set; }
         public string? UserId { get; private set; }
 
+        // Indica si el token esta cargado en memoria 
         public bool IsAuthenticated => !string.IsNullOrEmpty(AccessToken);
 
+        //Constructor
         private AuthService()
         {
         }
@@ -24,19 +30,56 @@ namespace apppasteleriav02.Services
         // Método de ejemplo: reemplazar con SupabaseAuth o tu API
         public async Task<bool> SignInAsync(string email, string password)
         {
-            // TODO: realizar llamada real a Supabase Auth aquí.
-            // Este ejemplo simula login exitoso para que la app pueda avanzar.
-            // Reemplaza por:
-            // var result = await SupabaseService.Instance.SignIn(email, password);
-            // if (result.Success) { AccessToken = result.Token; UserId = result.UserId; ... }
+            if (string.IsNullOrWhiteSpace(email) || (string.IsNullOrWhiteSpace(password))
+            {
+                Debug.WriteLine("AuthService.SignInAsync: email o password vacíos");
+                return false;
+            }
 
-            // Simulación mínima (para desarrollo): almacenar email como userId y token simulado
-            AccessToken = "dev-token-simulado";
-            UserId = email?.ToLowerInvariant() ?? "devuser";
-            await SecureStorage.Default.SetAsync(TokenKey, AccessToken);
-            await SecureStorage.Default.SetAsync(UserIdKey, UserId);
-            return true;
+            try
+            {
+
+                //Llamar al servicio de Supabase para autenticar
+                var res = await SupabaseService.Instance.SignInAsync(email.Trim(), password);
+                if (!res.Success)
+                {
+                    Debug.WriteLine($"AuthService.SignInAsync: supabase error: {res.Error}");
+                    return false;
+                }
+
+                AccessToken = res.AccessToken;
+                UserId = res.UserId?.ToString();
+
+
+                try
+                {
+                    // Guardar en almacenamiento seguro 
+                    if (!string.IsNullOrEmpty(AccessToken))
+                        await SecureStorage.Default.SetAsync(TokenKey, AccessToken);
+
+                    if (!string.IsNullOrEmpty(UserId))
+                        await SecureStorage.Default.SetAsync(UserIdKey, UserId);
+
+                    //Refresh token si está disponible
+                    if (!string.IsNullOrWhiteSpace(res.RefreshToken))
+                        await SecureStorage.Default.SetAsync("auth_token", res.RefreshToken);
+                }
+                catch (Exception secEx)
+                {
+                    Debug.WriteLine($"AuthServive.SignInAsync: SecureStorage error: {secEx.Message}");
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"AuthService.SignInAsync: exception: {ex.Message}");
+                return false;
+            }
+
         }
+
 
         public async Task LoadFromStorageAsync()
         {

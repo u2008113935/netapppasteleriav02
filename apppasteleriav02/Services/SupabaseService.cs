@@ -133,21 +133,37 @@ namespace apppasteleriav02.Services
         }
 
         // Inicio de sesion email/password 
-        public async Task<(bool ok, string accessToken, Guid userId, string error)> SignInAsync(string email, string password)
+        public async Task<(bool Success, string? AccessToken, string? RefreshToken, Guid? UserId, string? Error)> SignInAsync(string email, string password)
         {
-            var payload = new { email = email, password = password, grant_type = "password" };
-            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            try
+            {
+                var payload = new { email = email, password = password };
+                var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-            var resp = await _http.PostAsync($"{_url}/auth/v1/token?grant_type=password", content);
-            var js = await resp.Content.ReadAsStringAsync();
+                var resp = await _http.PostAsync($"{_url}/auth/v1/token?grant_type=password", content);
+                var js = await resp.Content.ReadAsStringAsync();
 
-            if (!resp.IsSuccessStatusCode) return (false, null, Guid.Empty, js);
+                if (!resp.IsSuccessStatusCode) return (false, null, null, null, js);
 
-            using var doc = JsonDocument.Parse(js);
-            var token = doc.RootElement.GetProperty("access_token").GetString();
-            var userId = doc.RootElement.GetProperty("user").GetProperty("id").GetGuid();
+                using var doc = JsonDocument.Parse(js);
+                var root = doc.RootElement;
 
-            return (true, token, userId, null);
+                var accessToken = doc.RootElement.GetProperty("access_token").GetString();
+                var refreshToken = root.TryGetProperty("refresh_token", out var r) ? r.GetString() : null;
+
+                var userIdStr = root.GetProperty("user").GetProperty("id").GetString();
+
+                Guid? userId = null;
+                if (!string.IsNullOrWhiteSpace(userIdStr) && Guid.TryParse(userIdStr, out var guid)) userId = guid;
+
+                return (true, accessToken, refreshToken, userId, null);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"SignInAsync error: {ex.Message}");
+                return (false, null, null, null, ex.Message);
+            }
         }
 
         // Mostrar Perfil
