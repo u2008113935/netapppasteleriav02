@@ -17,7 +17,7 @@ namespace apppasteleriav02.Views
     public partial class CheckoutPage : ContentPage
     {
         readonly CartService _cart = CartService.Instance;           // servicio singleton del carrito
-        readonly SupabaseService _supabase = new SupabaseService();  // servicio para llamadas a Supabase
+        readonly SupabaseService _supabase = SupabaseService.Instance;  // servicio para llamadas a Supabase
 
         // Tarifas / constantes simples para el ejemplo
         const decimal DefaultShipping = 1500m;
@@ -100,24 +100,38 @@ namespace apppasteleriav02.Views
 
             // Si el método de pago requiere tarjeta, validar campos mínimos
             var paymentIndex = PaymentPicker.SelectedIndex;
-            if ((paymentIndex == 1 || paymentIndex == 2) && (string.IsNullOrWhiteSpace(CardNumberEntry.Text) || string.IsNullOrWhiteSpace(CardHolderEntry.Text)))
+            if ((paymentIndex == 1 || paymentIndex == 2) && 
+                (string.IsNullOrWhiteSpace(CardNumberEntry.Text) || string.IsNullOrWhiteSpace(CardHolderEntry.Text)))
             {
                 await DisplayAlert("Pago", "Ingresa los datos de la tarjeta.", "OK");
                 return;
             }
 
-            // Recuperar user_id desde SecureStorage (se guardó en login)
+            // Recuperar user_id y token de SecureStorage para identificar al usuario
             Guid userId;
             try
             {
-                var userIdStr = await SecureStorage.Default.GetAsync("user_id");
-                if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out userId))
+                // Obtener userId desde el servicio de autenticación
+                var userIdStr = AuthService.Instance.UserId;
+
+                // Si no esta en memoria, intentar desde SecureStorage
+                //mantener la misma clave en AuthService y aquí
+                if (string.IsNullOrWhiteSpace(userIdStr)) 
+                    userIdStr = await SecureStorage.Default.GetAsync("auth_user_id");
+
+                if (!string.IsNullOrWhiteSpace(userIdStr) && !Guid.TryParse(userIdStr, out userId))
                 {
                     // Si no hay sesión, redirigir a login
                     await DisplayAlert("Sesión requerida", "Debes iniciar sesión para completar el pedido.", "OK");
                     await Shell.Current.GoToAsync("login");
                     return;
                 }
+
+                //Obetner el token desde AuthService
+                var toke = await AuthService.Instance.GetAccessTokenAsync();
+                if (!string.IsNullOrWhiteSpace(toke))
+                    _supabase.SetUserToken(token);
+
             }
             catch (Exception ex)
             {
@@ -146,6 +160,8 @@ namespace apppasteleriav02.Views
                 // Llamar al servicio que crea la orden (este método hace POST a pedidos + pedido_items)
                 var createdOrder = await _supabase.CreateOrderAsync(userId, itemsPayload);
 
+                if (createdOrder == null)
+                    throw new Exception("El servicio no devolvió información del pedido creado.");
                 // Si todo fue bien: limpiar carrito y mostrar confirmación
                 _cart.Clear();
 

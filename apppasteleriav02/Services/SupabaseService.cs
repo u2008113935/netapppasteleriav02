@@ -12,6 +12,9 @@ namespace apppasteleriav02.Services
 {
     public class SupabaseService
     {
+        
+        public static SupabaseService Instance {get; } = new SupabaseService();
+
         readonly HttpClient _http;
         readonly string _url;
         readonly string _anon;
@@ -90,24 +93,31 @@ namespace apppasteleriav02.Services
             var total = 0m;
             foreach (var it in items) total += it.Price * it.Quantity;
 
-            var orderPayload = new { userid = userid, total = total, status = "pendiente" };
+            var orderPayload = new 
+            { 
+                userid = userid, 
+                total = total, 
+                status = "pendiente", 
+                created_at = DateTime.UtcNow
+            };
+            
             var orderContent = new StringContent(JsonSerializer.Serialize(orderPayload), Encoding.UTF8, "application/json");
 
             using var orderReq = new HttpRequestMessage(HttpMethod.Post, $"{_url}/rest/v1/pedidos") { Content = orderContent };
             orderReq.Headers.Add("Prefer", "return=representation");
 
+            // enviar pedido y http ya tiene autenticación
             var resp = await _http.SendAsync(orderReq);
             resp.EnsureSuccessStatusCode();
             var createdOrderJson = await resp.Content.ReadAsStringAsync();
 
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            
             var created = JsonSerializer.Deserialize<List<Order>>(createdOrderJson, options);
-
             if (created == null || created.Count == 0)
             {
                 throw new Exception("No se pudo crear el pedido.");
             }
-
             var createdOrder = created[0];
 
             // Insertar items a pedido_items usando el id del pedido recién creado

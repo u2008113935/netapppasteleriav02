@@ -1,40 +1,81 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--
-  CheckoutPage.xaml
-  Página de comprobación / pago (checkout) para la app Pastelería Delicia.
-  Comentarios didácticos incluidos en cada bloque para explicar propósito y uso.
-  Nota: el code-behind (CheckoutPage.xaml.cs) debe:
-    - Asignar ItemsSource del CollectionView al CartService.Instance.Items
-    - Calcular/actualizar TotalLabel
-    - Manejar la lógica de PlaceOrder (validaciones, llamado a SupabaseService.CreateOrderAsync, limpieza del carrito)
-    - Mostrar/ocultar CardDetailsStack según PaymentPicker.SelectedIndex o PaymentPicker.SelectedItem
--->
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="apppasteleriav02.Views.CheckoutPage"
              Title="Checkout">
 
+    <ContentPage.Resources>
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#6C63FF"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+        </Style>
+
+
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#E0E0E0"/>
+            <Setter Property="TextColor" Value="#222"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <ScrollView>
-            <VerticalStackLayout Padding="12" Spacing="12">
+        <Grid RowDefinitions="Auto,*,Auto" Padding="12"
+              
+            <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12">
 
                 <!-- Título -->
-                <Label Text="Confirmar pedido" FontSize="20" FontAttributes="Bold" />
+                <Label Text="Confirmar pedido" FontSize="22" FontAttributes="Bold" />
 
                 <!-- Resumen rápido: CollectionView mostrando items del carrito -->
                 <!-- ItemsSource se asigna desde code-behind: CartCollection.ItemsSource = CartService.Instance.Items; -->
-                <CollectionView x:Name="CartCollection" SelectionMode="None" HeightRequest="220">
+                <CollectionView x:Name="CartCollection" 
+                                SelectionMode="None" 
+                                HeightRequest="260"
+                                ItemsLayout="VerticalList">
+                    
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame Padding="8" Margin="0,6" CornerRadius="8" HasShadow="True">
-                                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                                    <Image Source="{Binding ProductImageUrl}" WidthRequest="64" HeightRequest="64" Aspect="AspectFill"/>
-                                    <VerticalStackLayout HorizontalOptions="StartAndExpand">
-                                        <Label Text="{Binding ProductName}" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
-                                        <Label Text="{Binding Quantity, StringFormat='Cantidad: {0}'}" FontSize="12"/>
+                            <Frame Padding="10" Margin="0,6" CornerRadius="10" HasShadow="True">
+                                <Grid ColumnDefinitions="80,*,Auto" RowDefinitions="Auto,Auto">
+                                    
+                                    <!-- Contenedor de la imagen-->
+                                    <Frame CornerRadius="8"
+                                           HasShadow="False"
+                                           BackgroundColor="AliceBlue"
+                                           HeightRequest="72"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center">
+                                        <Image Source="{Binding ProductImageUrl}" 
+                                               WidthRequest="72" 
+                                               HeightRequest="72" 
+                                               Aspect="AspectFill"/>                                        
+                                    </Frame>
+
+                                    <!-- Nombre y detalle del producto-->
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4" Padding="8,0">
+                                        <Label Text="{Binding ProductName}" 
+                                               FontAttributes="Bold" 
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="2"/>
+                                        <Label Text="{Binding Quantity, StringFormat='Cantidad: {0}'}" 
+                                               FontSize="12"
+                                               TextColor="#555"/>
+                                        <Label Text="{Binding Price, StringFormat='Precio: S/ {0:C2}'}" 
+                                               FontSize="12"
+                                               TextColor="#555"/> "
                                     </VerticalStackLayout>
-                                    <Label Text="{Binding Subtotal, StringFormat='₡{0:N2}'}" VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
+                                    
+                                    <Label Grid.Column="2"
+                                        Text="{Binding Subtotal, StringFormat='S/{0:C2}'}" 
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="End"/>
+                                </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -42,7 +83,10 @@
 
                 <!-- Dirección de entrega (Entry) -->
                 <Label Text="Dirección de entrega" FontAttributes="Bold" />
-                <Editor x:Name="AddressEditor" AutoSize="TextChanges" Placeholder="Calle, número, referencia..." HeightRequest="80"/>
+                <Editor x:Name="AddressEditor" 
+                        AutoSize="TextChanges" 
+                        Placeholder="Calle, número, referencia..." 
+                        HeightRequest="80"/>
 
                 <!-- Switch: entrega a domicilio (si no, será recogida en tienda) -->
                 <HorizontalStackLayout VerticalOptions="Center" Spacing="8">
@@ -52,7 +96,9 @@
 
                 <!-- Selector de método de pago -->
                 <Label Text="Método de pago" FontAttributes="Bold" />
-                <Picker x:Name="PaymentPicker" Title="Seleccionar método" SelectedIndexChanged="OnPaymentMethodChanged">
+                <Picker x:Name="PaymentPicker" 
+                        Title="Seleccionar método" 
+                        SelectedIndexChanged="OnPaymentMethodChanged">
                     <Picker.Items>
                         <x:String>Efectivo al recibir</x:String>
                         <x:String>Tarjeta (POS)</x:String>
@@ -73,22 +119,25 @@
 
                 <!-- Comentarios adicionales para el pedido -->
                 <Label Text="Instrucciones / comentarios" FontAttributes="Bold"/>
-                <Editor x:Name="NotesEditor" AutoSize="TextChanges" HeightRequest="60" Placeholder="Ej.: Sin azúcar, llamar antes de entregar..."/>
+                <Editor x:Name="NotesEditor" 
+                        AutoSize="TextChanges" 
+                        HeightRequest="60" 
+                        Placeholder="Ej.: Sin azúcar, llamar antes de entregar..."/>
 
                 <!-- Resumen de montos -->
                 <Frame Padding="8" CornerRadius="8" HasShadow="True">
                     <VerticalStackLayout>
                         <HorizontalStackLayout>
                             <Label Text="Subtotal:" />
-                            <Label x:Name="SubtotalLabel" HorizontalOptions="EndAndExpand" Text="₡0.00"/>
+                            <Label x:Name="SubtotalLabel" HorizontalOptions="EndAndExpand" Text="S/ 0.00"/>
                         </HorizontalStackLayout>
                         <HorizontalStackLayout>
                             <Label Text="Envío:" />
-                            <Label x:Name="ShippingLabel" HorizontalOptions="EndAndExpand" Text="₡0.00"/>
+                            <Label x:Name="ShippingLabel" HorizontalOptions="EndAndExpand" Text="S/ 0.00"/>
                         </HorizontalStackLayout>
                         <HorizontalStackLayout>
                             <Label Text="Total:" FontAttributes="Bold"/>
-                            <Label x:Name="TotalLabel" HorizontalOptions="EndAndExpand" Text="₡0.00" FontAttributes="Bold"/>
+                            <Label x:Name="TotalLabel" HorizontalOptions="EndAndExpand" Text="S/ 0.00" FontAttributes="Bold"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </Frame>
@@ -104,6 +153,28 @@
                 <ActivityIndicator x:Name="CheckoutActivity" IsVisible="False" IsRunning="False" HeightRequest="36" />
 
             </VerticalStackLayout>
-        </ScrollView>
+            </ScrollView>
+
+
+            <Grid Grid.Row="2" 
+                  Padding="8" 
+                  ColumnDefinitions="*,Auto" 
+                  RowDefinitions="Auto" 
+                  BackgroundColor="#FFFFFF">
+
+                <Button Text="Volver" 
+                        Style="{StaticResource SecondaryButton}" 
+                        Clicked="OnBackClicked" 
+                        HorizontalOptions="Start"/>
+
+                <Button x:Name="PlaceOrderButton" 
+                        Text="Pagar y confirmar" 
+                        Style="{StaticResource PrimaryButton}" 
+                        Clicked="OnPlaceOrderClicked" 
+                        HorizontalOptions="End"/>
+            </Grid>
+
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

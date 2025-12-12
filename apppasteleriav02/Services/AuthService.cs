@@ -30,7 +30,7 @@ namespace apppasteleriav02.Services
         // Método de ejemplo: reemplazar con SupabaseAuth o tu API
         public async Task<bool> SignInAsync(string email, string password)
         {
-            if (string.IsNullOrWhiteSpace(email) || (string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
                 Debug.WriteLine("AuthService.SignInAsync: email o password vacíos");
                 return false;

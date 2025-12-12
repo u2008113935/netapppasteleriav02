@@ -10,7 +10,20 @@ namespace apppasteleriav02.Models
         public Guid ProductId { get; set; }
         public string? Nombre { get; set; }
         public string? ImagenPath { get; set; }
-        public decimal Price { get; set; }
+
+        private decimal _price;
+        public decimal Price 
+        { 
+            get => _price;
+            set
+            {
+                if (_price == value) return;
+                _price = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Subtotal));
+            }
+            
+        }
 
         private int _quantity;
         public int Quantity
@@ -21,10 +34,22 @@ namespace apppasteleriav02.Models
                 if (_quantity == value) return;
                 _quantity = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Subtotal));
             }
         }
 
+        //Propiedad calculada para el subtotal del ítem.
+        //Es solo de lectura y se recalcula automáticamente
+        public decimal Subtotal => Price * Quantity;
+
+        // Evitar escribir lógica adicional en las propiedades ProductName y ProductImageUrl
+        public string? ProductName => Nombre;
+        public string? ProductImageUrl => ImagenPath;
+
+        //Impletación de subtotal como propiedad calculada
         public event PropertyChangedEventHandler? PropertyChanged;
+        
+        //Helper para notificar cambios de propiedad
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
