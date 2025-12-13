@@ -12,23 +12,47 @@ namespace apppasteleriav02.Services
 {
     public class SupabaseService
     {
-        
-        public static SupabaseService Instance {get; } = new SupabaseService();
+        public static SupabaseService Instance { get; } = new SupabaseService();
 
         readonly HttpClient _http;
         readonly string _url;
         readonly string _anon;
+        readonly JsonSerializerOptions _jsonOpts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         public SupabaseService()
         {
             _url = SupabaseConfig.SUPABASE_URL.TrimEnd('/');
             _anon = SupabaseConfig.SUPABASE_ANON_KEY;
 
+            // Crear HttpClient una sola vez (singleton)
             _http = new HttpClient();
-            _http.DefaultRequestHeaders.Add("apikey", _anon);
-            _http.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", _anon);
+
+            // Siempre enviar apikey (anon) en header; no ponemos Authorization por defecto.
+            // Authorization se establecerá con SetUserToken cuando haya un token de usuario.
+            if (!string.IsNullOrWhiteSpace(_anon))
+                _http.DefaultRequestHeaders.Add("apikey", _anon);
+
             _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        /// <summary>
+        /// Establece o elimina el Authorization header del HttpClient.
+        /// Si token es null o vacío, se elimina el header (quedará la anon key en apikey).
+        /// </summary>
+        public void SetUserToken(string? token)
+        {
+            // Elimina header Authorization si existe
+            _http.DefaultRequestHeaders.Authorization = null;
+
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                Debug.WriteLine("SupabaseService: Authorization header set for user token.");
+            }
+            else
+            {
+                Debug.WriteLine("SupabaseService: Authorization header cleared (no user token).");
+            }
         }
 
         // GET /rest/v1/productos?select=*
@@ -37,10 +61,15 @@ namespace apppasteleriav02.Services
             try
             {
                 var resp = await _http.GetAsync($"{_url}/rest/v1/productos?select=*");
-                resp.EnsureSuccessStatusCode();
                 var json = await resp.Content.ReadAsStringAsync();
-                var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var products = JsonSerializer.Deserialize<List<Product>>(json, opts) ?? new List<Product>();
+
+                if (!resp.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine($"GetProductsAsync failed: {resp.StatusCode} - {json}");
+                    return new List<Product>();
+                }
+
+                var products = JsonSerializer.Deserialize<List<Product>>(json, _jsonOpts) ?? new List<Product>();
 
                 // Normaliza las rutas/URLs de imagen (detectar URL absoluta vs filename)
                 NormalizeProductImages(products);
@@ -86,47 +115,55 @@ namespace apppasteleriav02.Services
             }
         }
 
-        // Crear un pedido
+        // Crear un pedido (ajusta nombres de campos según tu esquema en Supabase)
         // POST /rest/v1/pedidos
         public async Task<Order> CreateOrderAsync(Guid userid, List<OrderItem> items)
         {
+            // 1) calcular total en base a items
             var total = 0m;
             foreach (var it in items) total += it.Price * it.Quantity;
 
-            var orderPayload = new 
-            { 
-                userid = userid, 
-                total = total, 
-                status = "pendiente", 
+            // 2) construir payload del pedido
+            // OBSERVACIÓN: usar user_id (snake_case) es lo común en Postgres/Supabase.
+            var orderPayload = new
+            {
+                user_id = userid,
+                total = total,
+                status = "pendiente",
                 created_at = DateTime.UtcNow
             };
-            
+
             var orderContent = new StringContent(JsonSerializer.Serialize(orderPayload), Encoding.UTF8, "application/json");
 
             using var orderReq = new HttpRequestMessage(HttpMethod.Post, $"{_url}/rest/v1/pedidos") { Content = orderContent };
             orderReq.Headers.Add("Prefer", "return=representation");
 
-            // enviar pedido y http ya tiene autenticación
+            // 3) enviar pedido
             var resp = await _http.SendAsync(orderReq);
-            resp.EnsureSuccessStatusCode();
             var createdOrderJson = await resp.Content.ReadAsStringAsync();
 
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            
-            var created = JsonSerializer.Deserialize<List<Order>>(createdOrderJson, options);
+            if (!resp.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"CreateOrderAsync (order) failed: {resp.StatusCode} - {createdOrderJson}");
+                throw new Exception($"CreateOrderAsync (order) failed: {createdOrderJson}");
+            }
+
+            var created = JsonSerializer.Deserialize<List<Order>>(createdOrderJson, _jsonOpts);
             if (created == null || created.Count == 0)
             {
-                throw new Exception("No se pudo crear el pedido.");
+                throw new Exception("No se pudo crear el pedido (respuesta vacía).");
             }
             var createdOrder = created[0];
 
-            // Insertar items a pedido_items usando el id del pedido recién creado
+            // 4) preparar payload de items
+            // IMPORTANTE: la clave de la FK debe coincidir con tu columna en la tabla (ej.: pedidos_id o pedido_id).
+            // En este ejemplo uso 'pedidos_id' (ajusta si tu tabla usa 'pedido_id').
             var itemsPayload = new List<object>();
             foreach (var it in items)
             {
                 itemsPayload.Add(new
                 {
-                    pedido_id = createdOrder.Id,
+                    pedidos_id = createdOrder.Id,   // <-- verificar que esta sea la columna FK correcta en tu tabla de items
                     producto_id = it.ProductId,
                     cantidad = it.Quantity,
                     precio = it.Price
@@ -136,9 +173,17 @@ namespace apppasteleriav02.Services
             var itemsContent = new StringContent(JsonSerializer.Serialize(itemsPayload), Encoding.UTF8, "application/json");
             using var itemsReq = new HttpRequestMessage(HttpMethod.Post, $"{_url}/rest/v1/pedido_items") { Content = itemsContent };
             itemsReq.Headers.Add("Prefer", "return=representation");
-            var respItems = await _http.SendAsync(itemsReq);
-            respItems.EnsureSuccessStatusCode();
 
+            var respItems = await _http.SendAsync(itemsReq);
+            var respItemsBody = await respItems.Content.ReadAsStringAsync();
+
+            if (!respItems.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"CreateOrderAsync (items) failed: {respItems.StatusCode} - {respItemsBody}");
+                throw new Exception($"CreateOrderAsync (items) failed: {respItemsBody}");
+            }
+
+            // 5) retornar el pedido creado
             return createdOrder;
         }
 
@@ -158,7 +203,7 @@ namespace apppasteleriav02.Services
                 using var doc = JsonDocument.Parse(js);
                 var root = doc.RootElement;
 
-                var accessToken = doc.RootElement.GetProperty("access_token").GetString();
+                var accessToken = root.GetProperty("access_token").GetString();
                 var refreshToken = root.TryGetProperty("refresh_token", out var r) ? r.GetString() : null;
 
                 var userIdStr = root.GetProperty("user").GetProperty("id").GetString();
@@ -167,7 +212,6 @@ namespace apppasteleriav02.Services
                 if (!string.IsNullOrWhiteSpace(userIdStr) && Guid.TryParse(userIdStr, out var guid)) userId = guid;
 
                 return (true, accessToken, refreshToken, userId, null);
-
             }
             catch (Exception ex)
             {
@@ -180,10 +224,15 @@ namespace apppasteleriav02.Services
         public async Task<Profile> GetProfileAsync(Guid id)
         {
             var resp = await _http.GetAsync($"{_url}/rest/v1/profiles?id=eq.{id}&select=*");
-            resp.EnsureSuccessStatusCode();
             var json = await resp.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var list = JsonSerializer.Deserialize<List<Profile>>(json, options);
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"GetProfileAsync failed: {resp.StatusCode} - {json}");
+                throw new Exception($"GetProfileAsync failed: {json}");
+            }
+
+            var list = JsonSerializer.Deserialize<List<Profile>>(json, _jsonOpts);
             return (list != null && list.Count > 0) ? list[0] : null;
         }
     }
