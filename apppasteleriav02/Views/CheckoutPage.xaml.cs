@@ -119,7 +119,8 @@ namespace apppasteleriav02.Views
                 if (string.IsNullOrWhiteSpace(userIdStr)) 
                     userIdStr = await SecureStorage.Default.GetAsync("auth_user_id");
 
-                if (!string.IsNullOrWhiteSpace(userIdStr) && !Guid.TryParse(userIdStr, out userId))
+                //Validar que userId es un GUID válido y parsearlo
+                if (!string.IsNullOrWhiteSpace(userIdStr) || !Guid.TryParse(userIdStr, out userId))
                 {
                     // Si no hay sesión, redirigir a login
                     await DisplayAlert("Sesión requerida", "Debes iniciar sesión para completar el pedido.", "OK");
@@ -128,9 +129,12 @@ namespace apppasteleriav02.Views
                 }
 
                 //Obetner el token desde AuthService
-                var toke = await AuthService.Instance.GetAccessTokenAsync();
-                if (!string.IsNullOrWhiteSpace(toke))
+                var token = await AuthService.Instance.GetAccessTokenAsync();
+                if (!string.IsNullOrWhiteSpace(token))
+                {
                     _supabase.SetUserToken(token);
+                }
+                   
 
             }
             catch (Exception ex)

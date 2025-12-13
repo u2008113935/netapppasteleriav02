@@ -112,5 +112,28 @@ namespace apppasteleriav02.Services
             SecureStorage.Default.Remove(UserIdKey);
             await Task.CompletedTask;
         }
+
+        //Devuelve el access token en  memoria o lo carga del SecureStorage
+        public async Task<string?> GetAccessTokenAsync()
+        {
+            //Si ya lo tenemos en memoria, devolverlo
+            if (!string.IsNullOrWhiteSpace(AccessToken))
+                return this.AccessToken;
+
+            //Si no, intentar cargarlo del SecureStorage
+            try
+            {
+                //TokenKey debe ser el mismo que usamos en SignInAsync
+                const string TokenKey = "auth_token";
+                var tokenFromStorage = await SecureStorage.Default.GetAsync(TokenKey);
+                return tokenFromStorage;
+            }
+            catch
+            {
+                // Falla del SecureStorage
+                return null;
+            }
+
+        }
     }
 }
