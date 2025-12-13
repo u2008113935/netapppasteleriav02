@@ -6,6 +6,9 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
 using apppasteleriav02.Services;
 using apppasteleriav02.Models;
+//using Kotlin.Jvm.Internal;
+using System.Diagnostics;
+using Microsoft.Maui.Storage;
 
 namespace apppasteleriav02.Views
 {
@@ -120,11 +123,11 @@ namespace apppasteleriav02.Views
                     userIdStr = await SecureStorage.Default.GetAsync("auth_user_id");
 
                 //Validar que userId es un GUID válido y parsearlo
-                if (!string.IsNullOrWhiteSpace(userIdStr) || !Guid.TryParse(userIdStr, out userId))
+                if (string.IsNullOrWhiteSpace(userIdStr) || !Guid.TryParse(userIdStr, out userId))
                 {
                     // Si no hay sesión, redirigir a login
                     await DisplayAlert("Sesión requerida", "Debes iniciar sesión para completar el pedido.", "OK");
-                    await Shell.Current.GoToAsync("login");
+                    await Shell.Current.GoToAsync("//login");
                     return;
                 }
 
@@ -133,6 +136,8 @@ namespace apppasteleriav02.Views
                 if (!string.IsNullOrWhiteSpace(token))
                 {
                     _supabase.SetUserToken(token);
+                    Debug.WriteLine($"[Checkout] Token set: " +
+                        $"{token?.Substring(0, Math.Min(8, token.Length))}...");
                 }
                    
 

@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("apppasteleriav02")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+f4404e4fd7520d2cea855e85dfd325c407c90d8c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+48e692abe0b47c6a723a292f568e06ed3670530a")]
 [assembly: System.Reflection.AssemblyProductAttribute("apppasteleriav02")]
 [assembly: System.Reflection.AssemblyTitleAttribute("apppasteleriav02")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

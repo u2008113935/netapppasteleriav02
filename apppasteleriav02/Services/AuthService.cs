@@ -62,7 +62,11 @@ namespace apppasteleriav02.Services
 
                     //Refresh token si está disponible
                     if (!string.IsNullOrWhiteSpace(res.RefreshToken))
-                        await SecureStorage.Default.SetAsync("auth_token", res.RefreshToken);
+                        await SecureStorage.Default.SetAsync(RefreshKey, res.RefreshToken);
+
+                    //Informar a supabaservice que use el token recien obtenido
+                    SupabaseService.Instance.SetUserToken(AccessToken);
+
                 }
                 catch (Exception secEx)
                 {
@@ -87,10 +91,14 @@ namespace apppasteleriav02.Services
             {
                 AccessToken = await SecureStorage.Default.GetAsync(TokenKey);
                 UserId = await SecureStorage.Default.GetAsync(UserIdKey);
+
+                if(!string.IsNullOrWhiteSpace(AccessToken))
+                    SupabaseService.Instance.SetUserToken(AccessToken);
+
             }
             catch
             {
-                // no available or permission denied
+                
             }
         }
 
@@ -118,13 +126,13 @@ namespace apppasteleriav02.Services
         {
             //Si ya lo tenemos en memoria, devolverlo
             if (!string.IsNullOrWhiteSpace(AccessToken))
-                return this.AccessToken;
+                return AccessToken;
 
             //Si no, intentar cargarlo del SecureStorage
             try
             {
                 //TokenKey debe ser el mismo que usamos en SignInAsync
-                const string TokenKey = "auth_token";
+                
                 var tokenFromStorage = await SecureStorage.Default.GetAsync(TokenKey);
                 return tokenFromStorage;
             }

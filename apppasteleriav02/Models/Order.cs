@@ -13,7 +13,7 @@ namespace apppasteleriav02.Models
         [JsonPropertyName("userid")]
         public Guid UserId { get; set; }
 
-        [JsonPropertyName ("Total")]
+        [JsonPropertyName ("total")]
         public decimal Total { get; set; }
 
         [JsonPropertyName("status")]

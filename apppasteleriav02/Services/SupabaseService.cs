@@ -107,7 +107,7 @@ namespace apppasteleriav02.Services
             // Usamos user_id por convención; si tu BD usa 'userid' cambia aquí o en la BD.
             var orderPayload = new
             {
-                user_id = userid,
+                userid = userid,
                 total = total,
                 status = "pendiente",
                 created_at = DateTime.UtcNow
