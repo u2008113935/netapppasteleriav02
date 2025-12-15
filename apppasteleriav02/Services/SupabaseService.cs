@@ -39,11 +39,11 @@ namespace apppasteleriav02.Services
             if (!string.IsNullOrWhiteSpace(token))
             {
                 _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                Debug.WriteLine("SupabaseService: Authorization header set for user token.");
+                Debug.WriteLine($"[SupabaseService]: Authorization set: {_http.DefaultRequestHeaders.Authorization}");
             }
             else
             {
-                Debug.WriteLine("SupabaseService: Authorization header cleared.");
+                Debug.WriteLine("[SupabaseService]: Authorization header cleared.");
             }
         }
 
