@@ -3,12 +3,11 @@
   "WorkspaceRootPath": "D:\\NetApp\\apppasteleriav02\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\platforms\\android\\androidmanifest.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\platforms\\android\\androidmanifest.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\packs\\Microsoft.Android.Sdk.Windows\\36.1.2\\tools\\Xamarin.Android.Aapt2.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\platforms\\android\\resources\\xml\\filepaths.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\platforms\\android\\resources\\xml\\filepaths.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\platforms\\android\\androidmanifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\platforms\\android\\androidmanifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,28 +26,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AndroidManifest.xml",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
-              "RelativeToolTip": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-12-16T04:03:06.198Z",
+              "Title": "Xamarin.Android.Aapt2.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\packs\\Microsoft.Android.Sdk.Windows\\36.1.2\\tools\\Xamarin.Android.Aapt2.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\packs\\Microsoft.Android.Sdk.Windows\\36.1.2\\tools\\Xamarin.Android.Aapt2.targets",
+              "ViewState": "AgIAADoAAAAAAAAAAAAEwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-12-16T04:32:58.397Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "filepaths.xml",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
-              "RelativeToolTip": "apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
+              "Title": "AndroidManifest.xml",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "RelativeDocumentMoniker": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "RelativeToolTip": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-12-16T03:58:32.531Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-16T04:32:34.686Z"
             }
           ]
         }
