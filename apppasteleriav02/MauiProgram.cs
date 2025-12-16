@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
 
 namespace apppasteleriav02
 {
@@ -19,7 +21,10 @@ namespace apppasteleriav02
     		builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            // Construir la app
+            var app = builder.Build();           
+
+            return app;
         }
     }
 }

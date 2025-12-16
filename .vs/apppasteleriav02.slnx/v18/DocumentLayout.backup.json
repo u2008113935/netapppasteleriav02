@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "D:\\NetApp\\apppasteleriav02\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\services\\supabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\services\\supabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\views\\checkoutpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\views\\checkoutpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,64 +38,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderItem.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Models\\OrderItem.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Models\\OrderItem.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Models\\OrderItem.cs",
-              "RelativeToolTip": "apppasteleriav02\\Models\\OrderItem.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T02:38:49.728Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Order.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Models\\Order.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Models\\Order.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Models\\Order.cs",
-              "RelativeToolTip": "apppasteleriav02\\Models\\Order.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAkwBQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T02:37:55.409Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SupabaseService.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Services\\SupabaseService.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Services\\SupabaseService.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Services\\SupabaseService.cs",
-              "RelativeToolTip": "apppasteleriav02\\Services\\SupabaseService.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAApwCkAAABzAAAAAAAAAA==",
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml.cs",
+              "RelativeDocumentMoniker": "apppasteleriav02\\App.xaml.cs",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml.cs",
+              "RelativeToolTip": "apppasteleriav02\\App.xaml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T02:32:04.439Z",
+              "WhenOpened": "2025-12-16T00:02:41.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "apppasteleriav02\\MauiProgram.cs",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\MauiProgram.cs",
+              "RelativeToolTip": "apppasteleriav02\\MauiProgram.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T23:58:50.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CheckoutPage.xaml.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Views\\CheckoutPage.xaml.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Views\\CheckoutPage.xaml.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Views\\CheckoutPage.xaml.cs",
-              "RelativeToolTip": "apppasteleriav02\\Views\\CheckoutPage.xaml.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAgwIAAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T02:21:21.486Z"
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Views\\MainPage.xaml",
+              "RelativeDocumentMoniker": "apppasteleriav02\\Views\\MainPage.xaml",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Views\\MainPage.xaml",
+              "RelativeToolTip": "apppasteleriav02\\Views\\MainPage.xaml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAACYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-15T23:58:21.6Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Services\\AuthService.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Services\\AuthService.cs",
-              "RelativeToolTip": "apppasteleriav02\\Services\\AuthService.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAqwGEAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T01:30:25.069Z"
+              "DocumentIndex": 2,
+              "Title": "Colors.xaml",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Resources\\Styles\\Colors.xaml",
+              "RelativeDocumentMoniker": "apppasteleriav02\\Resources\\Styles\\Colors.xaml",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Resources\\Styles\\Colors.xaml",
+              "RelativeToolTip": "apppasteleriav02\\Resources\\Styles\\Colors.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-15T23:56:10.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml",
+              "RelativeDocumentMoniker": "apppasteleriav02\\App.xaml",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml",
+              "RelativeToolTip": "apppasteleriav02\\App.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-15T23:54:10.7Z",
+              "EditorCaption": ""
             }
           ]
         }
