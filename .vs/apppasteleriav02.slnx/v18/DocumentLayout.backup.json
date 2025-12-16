@@ -3,24 +3,12 @@
   "WorkspaceRootPath": "D:\\NetApp\\apppasteleriav02\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\platforms\\android\\androidmanifest.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\platforms\\android\\androidmanifest.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|d:\\netapp\\apppasteleriav02\\apppasteleriav02\\platforms\\android\\resources\\xml\\filepaths.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}",
+      "RelativeMoniker": "D:0:0:{540C0729-9C65-9EDE-6FAA-18768DCA86A5}|apppasteleriav02\\apppasteleriav02.csproj|solutionrelative:apppasteleriav02\\platforms\\android\\resources\\xml\\filepaths.xml||{6B79B2C4-8503-4A04-8248-ADCEF2B49CB1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,66 +27,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\App.xaml.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml.cs",
-              "RelativeToolTip": "apppasteleriav02\\App.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T00:02:41.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MauiProgram.cs",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\MauiProgram.cs",
-              "RelativeDocumentMoniker": "apppasteleriav02\\MauiProgram.cs",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\MauiProgram.cs",
-              "RelativeToolTip": "apppasteleriav02\\MauiProgram.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-15T23:58:50.832Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainPage.xaml",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Views\\MainPage.xaml",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Views\\MainPage.xaml",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Views\\MainPage.xaml",
-              "RelativeToolTip": "apppasteleriav02\\Views\\MainPage.xaml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAACYAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-15T23:58:21.6Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Colors.xaml",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Resources\\Styles\\Colors.xaml",
-              "RelativeDocumentMoniker": "apppasteleriav02\\Resources\\Styles\\Colors.xaml",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Resources\\Styles\\Colors.xaml",
-              "RelativeToolTip": "apppasteleriav02\\Resources\\Styles\\Colors.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-15T23:56:10.341Z",
+              "Title": "AndroidManifest.xml",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "RelativeDocumentMoniker": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "RelativeToolTip": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-12-16T04:03:06.198Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "App.xaml",
-              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml",
-              "RelativeDocumentMoniker": "apppasteleriav02\\App.xaml",
-              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\App.xaml",
-              "RelativeToolTip": "apppasteleriav02\\App.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-15T23:54:10.7Z",
+              "Title": "filepaths.xml",
+              "DocumentMoniker": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
+              "RelativeDocumentMoniker": "apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
+              "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
+              "RelativeToolTip": "apppasteleriav02\\Platforms\\Android\\Resources\\xml\\filepaths.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-12-16T03:58:32.531Z",
               "EditorCaption": ""
             }
           ]

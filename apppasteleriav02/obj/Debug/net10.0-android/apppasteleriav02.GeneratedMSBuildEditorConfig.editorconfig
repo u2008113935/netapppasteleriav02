@@ -106,6 +106,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[D:/NetApp/apppasteleriav02/apppasteleriav02/Views/OrdersPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = apppasteleriav02.Views.OrdersPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\OrdersPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\OrdersPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [D:/NetApp/apppasteleriav02/apppasteleriav02/Views/ProfilePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = apppasteleriav02.Views.ProfilePage.xaml
