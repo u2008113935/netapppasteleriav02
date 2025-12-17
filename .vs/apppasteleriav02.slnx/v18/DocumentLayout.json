@@ -18,7 +18,7 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -28,7 +28,7 @@
               "RelativeDocumentMoniker": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
               "ToolTip": "D:\\NetApp\\apppasteleriav02\\apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
               "RelativeToolTip": "apppasteleriav02\\Platforms\\Android\\AndroidManifest.xml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
               "WhenOpened": "2025-12-16T04:32:34.686Z",
               "EditorCaption": ""
